@@ -18,7 +18,7 @@ namespace EcomCore.Services
             {
                 using (SqlCommand cmd = new SqlCommand(SpName, conn))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure; // 📌 Stored Procedure Mode
+                    cmd.CommandType = CommandType.StoredProcedure; 
                     if (para != null)
                         cmd.Parameters.AddRange(para);
 
@@ -35,7 +35,7 @@ namespace EcomCore.Services
             {
                 using (SqlCommand cmd = new SqlCommand(SpName, conn))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure; // 📌 Set as Stored Procedure
+                    cmd.CommandType = CommandType.StoredProcedure;
                     if (para != null)
                         cmd.Parameters.AddRange(para);
 
