@@ -1,9 +1,17 @@
+using EcomCore.Interface;
+using EcomCore.Models;
+using EcomCore.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddSingleton<DBConnection>();
+builder.Services.AddScoped<IUser, UserService>();
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
