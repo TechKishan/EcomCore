@@ -21,6 +21,13 @@ namespace EcomCore.Services
         // Executes INSERT, UPDATE, DELETE stored procedures
         public int ExecuteNonQuery(string SpName, SqlParameter[] para)
         {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(SpName, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure; 
+                    if (para != null)
+                        cmd.Parameters.AddRange(para);
             try
             {
                 using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -47,15 +54,13 @@ namespace EcomCore.Services
         public DataTable ExecuteGetData(string SpName, SqlParameter[] para)
         {
             DataTable dt = new DataTable();
-            try
+            using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                using (SqlConnection conn = new SqlConnection(_connectionString))
+                using (SqlCommand cmd = new SqlCommand(SpName, conn))
                 {
-                    using (SqlCommand cmd = new SqlCommand(SpName, conn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        if (para != null)
-                            cmd.Parameters.AddRange(para);
+                    cmd.CommandType = CommandType.StoredProcedure; // 📌 Set as Stored Procedure
+                    if (para != null)
+                        cmd.Parameters.AddRange(para);
 
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
