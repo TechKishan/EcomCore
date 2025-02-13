@@ -27,12 +27,12 @@ namespace EcomCore.Services
                 new SqlParameter("@Role", data.Role)
                 };
 
-                int rowsAffected = _dbConnection.ExecuteNonQuery("sp_AddUser", parameters);
+                _dbConnection.ExecuteNonQuery("SpAddUserProfile", parameters);
 
                 return new MessageFor
                 {
-                    Status = rowsAffected > 0 ? 1 : 0,
-                    Message = rowsAffected > 0 ? "User added successfully" : "Failed to add user"
+                    Status = 1 ,
+                    Message =  "User added successfully"
                 };
             }
             catch (Exception ex)
@@ -45,7 +45,7 @@ namespace EcomCore.Services
             }
         }
 
-        public async Task<MessageFor> AddUsecvrInfo(User data)
+        public async Task<MessageFor> AddUserzzInfo(User data)
         {
             try
             {
