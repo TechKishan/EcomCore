@@ -1,6 +1,9 @@
 using EcomCore.Interface;
 using EcomCore.Models;
 using EcomCore.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +13,25 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<DBConnection>();
 builder.Services.AddScoped<IUser, UserService>();
 
+
+var key = Encoding.UTF8.GetBytes("GSGIS**SAHSBB*&S(^@&G@GK@!"); // Keep it secret
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "",
+            ValidAudience = "",
+            IssuerSigningKey = new SymmetricSecurityKey(key)
+        };
+    });
+
+builder.Services.AddAuthorization();
 var app = builder.Build();
 
 
