@@ -13,6 +13,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<DBConnection>();
 builder.Services.AddScoped<IUser, UserService>();
 builder.Services.AddScoped<IProducts, ProductService>();
+builder.Services.AddScoped<IOrder, OrderService>();
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
