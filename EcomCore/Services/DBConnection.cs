@@ -37,6 +37,22 @@ namespace EcomCore.Services
                 }
             }
         }
+        public async Task<int> ExecuteNonQueryAsync(string SpName, SqlParameter[] para)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(SpName, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    if (para != null)
+                        cmd.Parameters.AddRange(para);
+
+                    await conn.OpenAsync(); // Use OpenAsync to open the connection asynchronously
+                    return await cmd.ExecuteNonQueryAsync(); // Execute the command asynchronously
+                }
+            }
+        }
+
 
         public DataTable ExecuteGetData(string SpName, SqlParameter[] para)
         {

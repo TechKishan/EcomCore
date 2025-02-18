@@ -14,6 +14,13 @@ builder.Services.AddSingleton<DBConnection>();
 builder.Services.AddScoped<IUser, UserService>();
 builder.Services.AddScoped<IProducts, ProductService>();
 
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    });
+
+
 
 var key = Encoding.UTF8.GetBytes("GSGIS**SAHSBB*&S(^@&G@GK@!"); // Keep it secret
 

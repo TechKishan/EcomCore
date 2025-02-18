@@ -7,6 +7,7 @@ namespace EcomCore.Interface
     public interface IProducts
     {
         Task<MessageFor> AddProduct(Products data);
+        Task<MessageFor> AddProducts(Products data);
         Task<DataTable> GetProduct();
         Task<MessageFor> UpdateProduct(Products data);
         Task<DataTable> GetProductById(Products data);

@@ -20,10 +20,10 @@ namespace EcomCore.Controllers
 
         [HttpPost]
         [Route("api/Products/AddProduct")]
-        public async Task<ActionResult<MessageFor>> AddProduct(Products data)
+        public async Task<ActionResult<MessageFor>> AddProduct([FromBody] Products data)
         {
             
-            return await _products.AddProduct(data);
+            return await _products.AddProducts(data);
         }
 
         [AllowAnonymous]
@@ -36,13 +36,13 @@ namespace EcomCore.Controllers
 
         [HttpPost]
         [Route("api/Products/UpdateProduct")]
-        public async Task<ActionResult<MessageFor>> UpdateProduct(Products data)
+        public async Task<ActionResult<MessageFor>> UpdateProduct([FromBody] Products data)
         {
             return await _products.UpdateProduct(data);
         }
         [HttpPost]
         [Route("api/Products/GetProductByID")]
-        public async Task<ActionResult<DataTable>> GetProductByID(Products data)
+        public async Task<ActionResult<DataTable>> GetProductByID([FromBody] Products data)
         {
             return await _products.GetProductById(data);
         }

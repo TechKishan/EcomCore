@@ -35,6 +35,35 @@ namespace EcomCore.Services
             };
         }
 
+        public async Task<MessageFor> AddProducts(Products data)
+        {
+            try
+            {
+                SqlParameter[] para = new SqlParameter[]
+                {
+                new SqlParameter("@Action", "INSERT"),
+                new SqlParameter("@Name", data.Name),
+                new SqlParameter("@Description", data.Description),
+                new SqlParameter("@Price", data.Price),
+                new SqlParameter("@Stock", data.Stock)
+                };
+                await _dbConnection.ExecuteNonQueryAsync("Sp_Products", para);
+                return new MessageFor
+                {
+                    Status = 1,
+                    Message = "Product added."
+                };
+            }
+            catch (Exception ex)
+            {
+                return new MessageFor
+                {
+                    Status = 0,
+                    Message = $"Error: {ex.Message}"
+                };
+            }
+        }
+
 
         /*
          public async Task<MessageFor> AddProduct(Products data)
